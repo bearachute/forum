@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
-    def index
+        before_action :find_post, only: [:show, :edit, :update, :destroy]
+    
+    
+        def index
     end
 
     def new
@@ -10,7 +13,7 @@ end
     end
 
     def update
-        if @post.update 
+        if @post.update(post_params)
             redirect_to @post 
         else
             render 'edit'
@@ -27,8 +30,6 @@ end
 
     def find_post
         @post = Post.find(params[:id])
-
-        before_action :find_post, only: [:show, :edit, :update, :destroy]
     end
 
     def create
